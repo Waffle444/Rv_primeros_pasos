@@ -15,8 +15,8 @@ public class Ball : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
-	}
+        GazeManager.Instance.OnGazeSelection += OnPlayerHit;
+    }
 	
 	// Update is called once per frame
 	void Update () {

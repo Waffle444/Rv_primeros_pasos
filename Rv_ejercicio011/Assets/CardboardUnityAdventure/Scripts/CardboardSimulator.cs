@@ -42,4 +42,5 @@ public class CardboardSimulator : MonoBehaviour
         rotationX = 0;
         rotationY = cam.transform.localEulerAngles.y;
     }
+
 }
