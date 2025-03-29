@@ -62,7 +62,7 @@ public class CameraPointerManager : MonoBehaviour
                 GazeManager.Instance.StartGazeSelection();
             }
             if (hit.transform.CompareTag(interactableTag))
-            {
+            {           
                 PointerOnGaze(hit.point);
             }
             else { PointerOutGaze(); }

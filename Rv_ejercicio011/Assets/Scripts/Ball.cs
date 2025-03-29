@@ -10,6 +10,7 @@ public class Ball : MonoBehaviour {
 	public float deflectionRadius = 2f;
 	public float rotatingSpeed = 50f;
 	public Vector3 direction;
+	[SerializeField] Animator anim;
 
 	public int score = 0;
 
@@ -46,8 +47,9 @@ public class Ball : MonoBehaviour {
 			direction *= -1;
 
 			speed += speedIncrement;
-
+			anim.SetBool("raquet",true);
 			score++;
 		}
-	}
+        anim.SetBool("raquet", false);
+    }
 }
