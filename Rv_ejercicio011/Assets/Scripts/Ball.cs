@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using TMPro;
 
 public class Ball : MonoBehaviour {
 
@@ -9,7 +10,9 @@ public class Ball : MonoBehaviour {
 	public float deflectionDepth = 6f;
 	public float deflectionRadius = 2f;
 	public float rotatingSpeed = 50f;
+	[SerializeField] TextMeshProUGUI textHighScore;
 	public Vector3 direction;
+	public int highScore;
 	[SerializeField] Animator anim;
 
 	public int score = 0;
@@ -17,6 +20,8 @@ public class Ball : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         GazeManager.Instance.OnGazeSelection += OnPlayerHit;
+		highScore = PlayerPrefs.GetInt("HighScore", 0);
+		textHighScore.text="Score Maximo:"+highScore.ToString();
     }
 	
 	// Update is called once per frame
@@ -49,6 +54,11 @@ public class Ball : MonoBehaviour {
 			speed += speedIncrement;
 			anim.SetBool("raquet",true);
 			score++;
+			if(PlayerPrefs.GetInt("HighScore",0)<score)
+			{
+				PlayerPrefs.SetInt("HighScore",score);
+			}
+			
 		}
         anim.SetBool("raquet", false);
     }

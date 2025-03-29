@@ -74,6 +74,7 @@ public class CameraPointerManager : MonoBehaviour
             if (_gazedAtObject != null)
             { _gazedAtObject?.SendMessage("OnPointerExitXR", null, SendMessageOptions.DontRequireReceiver); }
             _gazedAtObject = null;
+            PointerOutGaze();
         }
 
         // Checks for screen touches.
