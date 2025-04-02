@@ -1,53 +1,81 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.SceneManagement;
+using System.Collections;
 using TMPro;
 
 public class GameController : MonoBehaviour {
 
+    public TextMeshProUGUI infoText;
+    public GameObject ball;
     public Player player;
-	public Ball ball;
-	public TextMeshProUGUI scoreText;
-    public GameObject menu_gameover;
+    public Cup[] cups;
 
-    private float gameOverTimer = 3f;
+    private float resetTimer = 3f;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		bool isGameOver = ball.transform.position.z < player.transform.position.z;
+    // Use this for initialization
+    void Start () {
+        infoText.text = "Escoje la opcion correcta";
 
-        if (isGameOver == false)
-        {
-            scoreText.text = "Score: " + ball.score;
+        StartCoroutine (ShuffleRoutine());
+    }
+    
+    // Update is called once per frame
+    void Update () {
+        if (player.picked) {
+            if (player.won) {
+                infoText.text = "Ganaste!";
+            } else {
+                infoText.text = "Perdiste intenta de nuevo!";
+            }
+
+            resetTimer -= Time.deltaTime;
+            if (resetTimer <= 0f) {
+                SceneManager.LoadScene (SceneManager.GetActiveScene().name);
+            }
         }
-        else
-        {
-            scoreText.text = "Game over!\nYour final score: " + ball.score;
-            menu_gameover.SetActive(true);
+    }
+
+    private IEnumerator ShuffleRoutine () {
+        yield return new WaitForSeconds (1f);
+
+        foreach (Cup cup in cups) {
+            cup.MoveUp ();
         }
-    }
-    public void reinicio()
-    {
-        Debug.Log("se reinicio");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-    public void ManinMenu()
-    {  
-        Debug.Log("Se regreso");
-        SceneManager.LoadScene("MainMenu");
-    }
-    public void IniciarJuego()
-    {
-        SceneManager.LoadScene("Ejercicio03-juego-VR-Pong");
-    }
-    public void CerrarJuego()
-    {
-        Debug.Log("El juego se cerrará.");
-        Application.Quit();
+
+        yield return new WaitForSeconds (0.5f);
+
+        Cup targetCup = cups[Random.Range(0, cups.Length)];
+        targetCup.ball = ball;
+        ball.transform.position = new Vector3 (
+            targetCup.transform.position.x,
+            ball.transform.position.y,
+            targetCup.transform.position.z
+        );
+
+        yield return new WaitForSeconds (1.0f);
+
+        foreach (Cup cup in cups) {
+            cup.MoveDown ();
+        }
+
+        yield return new WaitForSeconds (1.0f);
+
+        for (int i = 0; i < 5; i++) {
+            Cup cup1 = cups[Random.Range(0, cups.Length)];
+            Cup cup2 = cup1;
+
+            while (cup2 == cup1) {
+                cup2 = cups[Random.Range(0, cups.Length)];
+            }
+
+            Vector3 cup1Position = cup1.targetPosition;
+
+            cup1.targetPosition = cup2.targetPosition;
+            cup2.targetPosition = cup1Position;
+
+            yield return new WaitForSeconds (0.75f);
+        }
+
+        player.canPick = true;
     }
 }

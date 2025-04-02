@@ -3,7 +3,10 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
-	public float ballProximity = 4f;
+	public bool canPick = false;
+
+	public bool picked = false;
+	public bool won = false;
 
 	// Use this for initialization
 	void Start () {
@@ -12,16 +15,27 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		RaycastHit hit;
+		if (canPick == true) {
 
-		if (Physics.Raycast(transform.position, transform.forward, out hit)) {
-			if (hit.transform.GetComponent<Ball>() != null) {
-				Ball ball = hit.transform.GetComponent<Ball> ();
+			//if (/*GvrViewer.Instance.Triggered ||*/ Input.GetKeyDown ("space")) {
+				RaycastHit hit;
 
-				if (ball.transform.position.z - transform.position.z < ballProximity && ball.direction.z < 0) {
-					ball.OnPlayerHit ();
+				if (Physics.Raycast(transform.position, transform.forward, out hit)) {
+
+					Cup cup = hit.transform.GetComponent<Cup> ();
+				Debug.Log(cup);
+					if (cup != null) {
+						canPick = false;
+
+						picked = true;
+						won = (cup.ball != null);
+
+						cup.MoveUp ();
+					}
+
 				}
-			}
+			//}
+
 		}
 	}
 }
