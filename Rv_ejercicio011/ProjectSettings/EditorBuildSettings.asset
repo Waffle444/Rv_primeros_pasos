@@ -10,6 +10,15 @@ EditorBuildSettings:
     guid: 74ee19b19039a9b48a04899342595ac6
   - enabled: 1
     path: Assets/Scenes/MainMenu.unity
-    guid: 4ac01bad62a94ba448db553a2ab33f78
+    guid: e0f850d1f6103eb4c84f1ffff2dfffb9
+  - enabled: 1
+    path: Assets/Scenes/Naves/Ejercicio05-naves.unity
+    guid: ec6a655804cd0bd48871f6aff646b1c7
+  - enabled: 1
+    path: Assets/Scenes/Naves/Menu_Principal_Naves.unity
+    guid: a353a566a10c355458eec7994923b233
+  - enabled: 1
+    path: Assets/Scenes/Naves/Menu_Game_Over_Naves.unity
+    guid: f80a82e85ccb71044a479e12f04523a5
   m_configObjects:
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: d45d6b54c9d792843840cd802298b3ea, type: 2}

@@ -16,7 +16,7 @@ public class MenuController : MonoBehaviour
 
     public void menu_principal()
     {
-        SceneManager.LoadScene("Menu_principalNaves");
+        SceneManager.LoadScene("Menu_principal");
     }
 
     public void reiniciar()
@@ -26,7 +26,7 @@ public class MenuController : MonoBehaviour
 
     public void game_over()
     {
-        SceneManager.LoadScene("Menu_Game_OverNaves");
+        SceneManager.LoadScene("Menu_Game_Over");
     }
 
     public void OnPointerClick()
